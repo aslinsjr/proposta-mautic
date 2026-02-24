@@ -6,7 +6,7 @@
   <title>Proposta Técnica - Implementação Mautic 5 (2 Instâncias)</title>
   <style>
     :root {
-      --primary-color: #4f5ed3; /* Azul Mautic */
+      --primary-color: #4f5ed3;
       --secondary-color: #2c3e50;
       --bg-light: #f8f9fa;
       --text-dark: #333;
@@ -47,15 +47,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      flex: 0 0 auto;
     }
 
     .logo-area img { width: 100%; }
 
     .proposal-info { text-align: right; }
 
-    h1, h2, h3 { color: var(--secondary-color); }
-
+    h1, h2 { color: var(--secondary-color); }
     h1 { font-size: 24px; margin: 0; color: var(--primary-color); }
     h2 { font-size: 20px; border-left: 5px solid var(--primary-color); padding-left: 10px; margin-top: 30px; }
 
@@ -117,7 +115,7 @@
       <div class="proposal-info">
         <h1>Proposta Técnica</h1>
         <p>
-          Implementação <strong>Mautic 5.x</strong> (2 instâncias / 2 projetos)<br>
+          Implementação <strong>Mautic 5.x</strong> (2 instâncias)<br>
           <strong>Data:</strong> 02 de Fevereiro, 2026
         </p>
       </div>
@@ -126,25 +124,19 @@
     <section>
       <h2>1. Objetivo</h2>
       <p>
-        Implementação de infraestrutura dedicada para automação de marketing utilizando o <strong>Mautic 5</strong>.
-        O foco é garantir independência de plataformas SaaS, soberania sobre os dados de leads e redução drástica de custos operacionais.
-      </p>
-      <p>
-        Esta proposta contempla <strong>duas implementações (duas instâncias de Mautic)</strong>, uma para cada projeto, com desconto aplicado no setup.
+        Implementação de infraestrutura dedicada para automação de marketing utilizando o <strong>Mautic 5</strong>,
+        garantindo independência de plataformas SaaS, soberania dos dados e redução expressiva de custos operacionais.
       </p>
     </section>
 
     <section>
       <h2>2. Escopo da Implementação</h2>
       <ul>
-        <li><strong>Infraestrutura:</strong> Setup de Servidor VPS (Linux), configuração de performance Nginx/PHP 8.1 e SSL.</li>
-        <li><strong>Mautic Core:</strong> Instalação, configuração de banco de dados e otimização de Cron Jobs.</li>
-        <li><strong>Entregabilidade:</strong> Integração com Amazon SES e configuração de protocolos DNS (SPF, DKIM, DMARC).</li>
-        <li><strong>Tracking:</strong> Configuração do script de rastreamento de leads e pixel de monitoramento no site.</li>
+        <li><strong>Infraestrutura:</strong> Setup de Servidor VPS (Linux), Nginx, PHP 8.1 e SSL.</li>
+        <li><strong>Mautic Core:</strong> Instalação, banco de dados e otimização de Cron Jobs.</li>
+        <li><strong>Entregabilidade:</strong> Amazon SES + DNS (SPF, DKIM, DMARC).</li>
+        <li><strong>Tracking:</strong> Script de rastreamento e pixel de monitoramento.</li>
       </ul>
-      <p class="muted">
-        Observação: cada instância (projeto) possui infraestrutura e configurações próprias (domínio, DNS, credenciais SMTP e rastreamento).
-      </p>
     </section>
 
     <section>
@@ -158,31 +150,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>01</td>
-            <td>Provisionamento de Servidor e Segurança</td>
-            <td>4 dias</td>
-          </tr>
-          <tr>
-            <td>02</td>
-            <td>Instalação Mautic e Configuração Crons</td>
-            <td>7 dias</td>
-          </tr>
-          <tr>
-            <td>03</td>
-            <td>Setup de SMTP e DNS (Entregabilidade)</td>
-            <td>7 dias</td>
-          </tr>
-          <tr>
-            <td>04</td>
-            <td>Testes de Fluxo e Homologação</td>
-            <td>3 dias</td>
-          </tr>
+          <tr><td>01</td><td>Provisionamento e Segurança</td><td>4 dias</td></tr>
+          <tr><td>02</td><td>Instalação Mautic e Crons</td><td>7 dias</td></tr>
+          <tr><td>03</td><td>SMTP e DNS (Entregabilidade)</td><td>7 dias</td></tr>
+          <tr><td>04</td><td>Testes e Homologação</td><td>3 dias</td></tr>
         </tbody>
       </table>
-      <p class="muted">
-        Prazo acima por instância. Com duas instâncias, é possível executar em paralelo dependendo de acessos/credenciais e janelas de DNS.
-      </p>
     </section>
 
     <section>
@@ -193,14 +166,14 @@
           <tr>
             <th>Serviço</th>
             <th>Tipo</th>
-            <th>Valor Estimado</th>
+            <th>Valor</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>
-              <strong>Implementação e Setup (2 instâncias)</strong><br>
-              <span class="muted">Valor original: R$ 2.500,00 por instância (R$ 5.000,00). Aplicado desconto de 20% no pacote.</span>
+              <strong>Implementação (2 instâncias)</strong><br>
+              <span class="muted">Valor original: R$ 5.000,00 — desconto de 20% aplicado</span>
             </td>
             <td>Único</td>
             <td><strong>R$ 4.000,00</strong></td>
@@ -208,28 +181,22 @@
 
           <tr>
             <td>
-              <strong>Infraestrutura (Terceiros) — por instância</strong><br>
+              <strong>Infraestrutura (por instância)</strong><br>
               <span class="muted">
-                Servidor VPS: US$ 25 a US$ 35 / mês<br>
-                Envios de e-mail: ~US$ 0,10 por 1.000 e-mails (ex.: 350.000 e-mails/mês)
+                VPS: US$ 25–35 / mês<br>
+                Envios: US$ 0,10 por 1.000 e-mails (350.000/mês)
               </span>
             </td>
             <td>Mensal (Terceiros)</td>
             <td>
-              <strong>Servidor:</strong> US$ 25–35 (≈ R$ 130,50–182,70)<br>
-              <strong>Envios (350k):</strong> 350 × US$ 0,10 = US$ 35,00 (≈ R$ 182,70)<br>
-              <strong>Total mensal (por instância):</strong> US$ 60–70 (≈ R$ 313,20–365,40)
-              <div class="muted">
-                Para 2 instâncias: ≈ R$ 626,40–730,80/mês (considerando 350k por instância).
-              </div>
+              VPS: R$ 130,50–182,70<br>
+              Envios (350k): R$ 182,70<br>
+              <strong>Total:</strong> R$ 313,20–365,40
             </td>
           </tr>
 
           <tr>
-            <td>
-              <strong>Manutenção e Suporte (2 projetos)</strong><br>
-              <span class="muted">Valor fixo mensal cobrindo as duas instâncias.</span>
-            </td>
+            <td><strong>Manutenção e Suporte (2 projetos)</strong></td>
             <td>Mensal</td>
             <td><strong>R$ 600,00</strong></td>
           </tr>
@@ -237,19 +204,25 @@
       </table>
 
       <div class="highlight-box">
-        <strong>Nota de conversão:</strong> conversão aproximada usando <strong>US$ 1 = R$ 5,22</strong> (referência de mercado).<br>
-        <strong>Nota de ROI:</strong> esta solução tende a reduzir custos de forma relevante frente a ferramentas SaaS (ex.: HubSpot, RD Station), mantendo soberania dos dados e flexibilidade.
+        <strong>Nota de ROI:</strong> Em comparação com plataformas como <strong>ActiveCampaign</strong>, HubSpot e RD Station,
+        esta solução pode representar economia superior a <strong>70%</strong> em 12 meses, mantendo controle total sobre dados,
+        infraestrutura e regras de negócio.
       </div>
     </section>
+
+    <div class="highlight-box">
+      <strong>Condição Comercial Adicional:</strong><br>
+      Clientes deste projeto terão direito a <strong>desconto entre 20% e 30%</strong> em outros projetos de
+      desenvolvimento web, automações, integrações ou sistemas sob demanda.
+    </div>
 
     <div class="footer">
       <strong>Responsável Técnico:</strong> Alexandre Lins — Desenvolvedor Full Stack
     </div>
   </div>
 
-  <div style="text-align: center; margin-bottom: 40px;" class="no-print">
-    <button onclick="window.print()"
-      style="padding: 10px 20px; cursor: pointer; background: #4f5ed3; color: white; border: none; border-radius: 4px;">
+  <div class="no-print" style="text-align:center;margin-bottom:40px;">
+    <button onclick="window.print()" style="padding:10px 20px;background:#4f5ed3;color:#fff;border:none;border-radius:4px;">
       Salvar como PDF / Imprimir
     </button>
   </div>
