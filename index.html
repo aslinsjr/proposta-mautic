@@ -1,216 +1,258 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proposta Técnica - Implementação Mautic 5</title>
-    <style>
-        :root {
-            --primary-color: #4f5ed3; /* Azul Mautic */
-            --secondary-color: #2c3e50;
-            --bg-light: #f8f9fa;
-            --text-dark: #333;
-            --border-color: #dee2e6;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proposta Técnica - Implementação Mautic 5 (2 Instâncias)</title>
+  <style>
+    :root {
+      --primary-color: #4f5ed3; /* Azul Mautic */
+      --secondary-color: #2c3e50;
+      --bg-light: #f8f9fa;
+      --text-dark: #333;
+      --border-color: #dee2e6;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            margin: 0;
-            padding: 0;
-            background-color: #e9ecef;
-        }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      margin: 0;
+      padding: 0;
+      background-color: #e9ecef;
+    }
 
-        .container {
-            max-width: 850px;
-            margin: 40px auto;
-            background: #fff;
-            padding: 60px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            border-radius: 8px;
-        }
+    .container {
+      max-width: 850px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 60px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 20px;
-            margin-bottom: 40px;
-        }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 20px;
+      margin-bottom: 40px;
+      gap: 20px;
+    }
 
-        .logo-area {
-            width: 180px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .logo-area {
+      width: 180px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
 
-        .logo-area img {
-            width: 100%;
-        }
+    .logo-area img { width: 100%; }
 
-        .proposal-info {
-            text-align: right;
-        }
+    .proposal-info { text-align: right; }
 
-        h1, h2, h3 {
-            color: var(--secondary-color);
-        }
+    h1, h2, h3 { color: var(--secondary-color); }
 
-        h1 { font-size: 24px; margin: 0; color: var(--primary-color); }
-        h2 { font-size: 20px; border-left: 5px solid var(--primary-color); padding-left: 10px; margin-top: 30px; }
+    h1 { font-size: 24px; margin: 0; color: var(--primary-color); }
+    h2 { font-size: 20px; border-left: 5px solid var(--primary-color); padding-left: 10px; margin-top: 30px; }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
 
-        table th, table td {
-            border: 1px solid var(--border-color);
-            padding: 12px;
-            text-align: left;
-        }
+    table th, table td {
+      border: 1px solid var(--border-color);
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+    }
 
-        table th {
-            background-color: var(--bg-light);
-            color: var(--secondary-color);
-        }
+    table th {
+      background-color: var(--bg-light);
+      color: var(--secondary-color);
+    }
 
-        .highlight-box {
-            background-color: #f0f2ff;
-            border: 1px solid var(--primary-color);
-            padding: 20px;
-            border-radius: 6px;
-            margin: 20px 0;
-        }
+    .highlight-box {
+      background-color: #f0f2ff;
+      border: 1px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 6px;
+      margin: 20px 0;
+    }
 
-        .footer {
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-            font-size: 14px;
-            color: #777;
-            text-align: center;
-        }
+    .muted {
+      color: #666;
+      font-size: 13px;
+      margin-top: 6px;
+    }
 
-        @media print {
-            body { background: none; }
-            .container { box-shadow: none; margin: 0; width: 100%; max-width: 100%; }
-            .no-print { display: none; }
-        }
-    </style>
+    .footer {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+      font-size: 14px;
+      color: #777;
+      text-align: center;
+    }
+
+    @media print {
+      body { background: none; }
+      .container { box-shadow: none; margin: 0; width: 100%; max-width: 100%; }
+      .no-print { display: none; }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <div class="logo-area">
-                <img src="./logo-light.png" alt="">
-            </div>
-            <div class="proposal-info">
-                <h1>Proposta Técnica</h1>
-                <p>Implementação Mautic 5.x<br>
-                <strong>Data:</strong> 02 de Fevereiro, 2026</p>
-            </div>
-        </header>
+  <div class="container">
+    <header>
+      <div class="logo-area">
+        <img src="./logo-light.png" alt="">
+      </div>
+      <div class="proposal-info">
+        <h1>Proposta Técnica</h1>
+        <p>
+          Implementação <strong>Mautic 5.x</strong> (2 instâncias / 2 projetos)<br>
+          <strong>Data:</strong> 02 de Fevereiro, 2026
+        </p>
+      </div>
+    </header>
 
-        <section>
-            <h2>1. Objetivo</h2>
-            <p>Implementação de infraestrutura dedicada para automação de marketing utilizando o <strong>Mautic 5</strong>. O foco é garantir independência de plataformas SaaS, soberania sobre os dados de leads e redução drástica de custos operacionais.</p>
-        </section>
+    <section>
+      <h2>1. Objetivo</h2>
+      <p>
+        Implementação de infraestrutura dedicada para automação de marketing utilizando o <strong>Mautic 5</strong>.
+        O foco é garantir independência de plataformas SaaS, soberania sobre os dados de leads e redução drástica de custos operacionais.
+      </p>
+      <p>
+        Esta proposta contempla <strong>duas implementações (duas instâncias de Mautic)</strong>, uma para cada projeto, com desconto aplicado no setup.
+      </p>
+    </section>
 
-        <section>
-            <h2>2. Escopo da Implementação</h2>
-            <ul>
-                <li><strong>Infraestrutura:</strong> Setup de Servidor VPS (Linux), configuração de performance Nginx/PHP 8.1 e SSL.</li>
-                <li><strong>Mautic Core:</strong> Instalação, configuração de banco de dados e otimização de Cron Jobs.</li>
-                <li><strong>Entregabilidade:</strong> Integração com Amazon SES e configuração de protocolos DNS (SPF, DKIM, DMARC).</li>
-                <li><strong>Tracking:</strong> Configuração do script de rastreamento de leads e pixel de monitoramento no site.</li>
-            </ul>
-        </section>
+    <section>
+      <h2>2. Escopo da Implementação</h2>
+      <ul>
+        <li><strong>Infraestrutura:</strong> Setup de Servidor VPS (Linux), configuração de performance Nginx/PHP 8.1 e SSL.</li>
+        <li><strong>Mautic Core:</strong> Instalação, configuração de banco de dados e otimização de Cron Jobs.</li>
+        <li><strong>Entregabilidade:</strong> Integração com Amazon SES e configuração de protocolos DNS (SPF, DKIM, DMARC).</li>
+        <li><strong>Tracking:</strong> Configuração do script de rastreamento de leads e pixel de monitoramento no site.</li>
+      </ul>
+      <p class="muted">
+        Observação: cada instância (projeto) possui infraestrutura e configurações próprias (domínio, DNS, credenciais SMTP e rastreamento).
+      </p>
+    </section>
 
-        <section>
-            <h2>3. Cronograma</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Fase</th>
-                        <th>Atividade</th>
-                        <th>Prazo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>01</td>
-                        <td>Provisionamento de Servidor e Segurança</td>
-                        <td>4 dias</td>
-                    </tr>
-                    <tr>
-                        <td>02</td>
-                        <td>Instalação Mautic e Configuração Crons</td>
-                        <td>7 dias</td>
-                    </tr>
-                    <tr>
-                        <td>03</td>
-                        <td>Setup de SMTP e DNS (Entregabilidade)</td>
-                        <td>7 dias</td>
-                    </tr>
-                    <tr>
-                        <td>04</td>
-                        <td>Testes de Fluxo e Homologação</td>
-                        <td>3 dias</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+    <section>
+      <h2>3. Cronograma</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Fase</th>
+            <th>Atividade</th>
+            <th>Prazo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01</td>
+            <td>Provisionamento de Servidor e Segurança</td>
+            <td>4 dias</td>
+          </tr>
+          <tr>
+            <td>02</td>
+            <td>Instalação Mautic e Configuração Crons</td>
+            <td>7 dias</td>
+          </tr>
+          <tr>
+            <td>03</td>
+            <td>Setup de SMTP e DNS (Entregabilidade)</td>
+            <td>7 dias</td>
+          </tr>
+          <tr>
+            <td>04</td>
+            <td>Testes de Fluxo e Homologação</td>
+            <td>3 dias</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="muted">
+        Prazo acima por instância. Com duas instâncias, é possível executar em paralelo dependendo de acessos/credenciais e janelas de DNS.
+      </p>
+    </section>
 
-        <section>
-            <h2>4. Investimento</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Serviço</th>
-                        <th>Tipo</th>
-                        <th>Valor Estimado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Implementação e Setup</strong></td>
-                        <td>Único</td>
-                        <td>R$ 2.500,00</td>
-                    </tr>
-                    <tr>
-                        <td>Infraestrutura (VPS + SMTP)</td>
-                        <td>Mensal (Terceiros)</td>
-                        <td>~ R$ 60,00</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Manutenção e Suporte (Opcional)</strong></td>
-                        <td>Mensal</td>
-                        <td>R$ 400,00</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="highlight-box">
-                <strong>Nota de ROI:</strong> Esta solução representa uma economia estimada de <strong>70%</strong> em comparação a ferramentas como HubSpot ou RD Station em um período de 12 meses.
-            </div>
-        </section>
+    <section>
+      <h2>4. Investimento</h2>
 
-        <div class="footer">
-            <strong>Responsável Técnico:</strong> Alexandre Lins - Desenvolvedor Full Stack</p>
-        </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Serviço</th>
+            <th>Tipo</th>
+            <th>Valor Estimado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>Implementação e Setup (2 instâncias)</strong><br>
+              <span class="muted">Valor original: R$ 2.500,00 por instância (R$ 5.000,00). Aplicado desconto de 20% no pacote.</span>
+            </td>
+            <td>Único</td>
+            <td><strong>R$ 4.000,00</strong></td>
+          </tr>
+
+          <tr>
+            <td>
+              <strong>Infraestrutura (Terceiros) — por instância</strong><br>
+              <span class="muted">
+                Servidor VPS: US$ 25 a US$ 35 / mês<br>
+                Envios de e-mail: ~US$ 0,10 por 1.000 e-mails (ex.: 350.000 e-mails/mês)
+              </span>
+            </td>
+            <td>Mensal (Terceiros)</td>
+            <td>
+              <strong>Servidor:</strong> US$ 25–35 (≈ R$ 130,50–182,70)<br>
+              <strong>Envios (350k):</strong> 350 × US$ 0,10 = US$ 35,00 (≈ R$ 182,70)<br>
+              <strong>Total mensal (por instância):</strong> US$ 60–70 (≈ R$ 313,20–365,40)
+              <div class="muted">
+                Para 2 instâncias: ≈ R$ 626,40–730,80/mês (considerando 350k por instância).
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <strong>Manutenção e Suporte (2 projetos)</strong><br>
+              <span class="muted">Valor fixo mensal cobrindo as duas instâncias.</span>
+            </td>
+            <td>Mensal</td>
+            <td><strong>R$ 600,00</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="highlight-box">
+        <strong>Nota de conversão:</strong> conversão aproximada usando <strong>US$ 1 = R$ 5,22</strong> (referência de mercado).<br>
+        <strong>Nota de ROI:</strong> esta solução tende a reduzir custos de forma relevante frente a ferramentas SaaS (ex.: HubSpot, RD Station), mantendo soberania dos dados e flexibilidade.
+      </div>
+    </section>
+
+    <div class="footer">
+      <strong>Responsável Técnico:</strong> Alexandre Lins — Desenvolvedor Full Stack
     </div>
+  </div>
 
-    <div style="text-align: center; margin-bottom: 40px;" class="no-print">
-        <button onclick="window.print()" style="padding: 10px 20px; cursor: pointer; background: #4f5ed3; color: white; border: none; border-radius: 4px;">
-            Salvar como PDF / Imprimir
-        </button>
-    </div>
+  <div style="text-align: center; margin-bottom: 40px;" class="no-print">
+    <button onclick="window.print()"
+      style="padding: 10px 20px; cursor: pointer; background: #4f5ed3; color: white; border: none; border-radius: 4px;">
+      Salvar como PDF / Imprimir
+    </button>
+  </div>
 
 </body>
 </html>
